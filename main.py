@@ -1,6 +1,6 @@
-#Pesos e bias
 import sys
 
+#Pesos e bias
 pesos = [0.0, 0.0]
 bias = 0.0
 
