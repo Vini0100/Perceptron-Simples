@@ -47,7 +47,7 @@ def testar():
     maxIter = 0
 
     while True: # laço de uso do perceptron
-        operacaoInp = int(input("Digite a operação desejada: 1=AND, 2=OR, 3=XOR  - Ou digite um outro valor para sair "))
+        operacaoInp = int(input("Digite a operacao desejada: 1=AND, 2=OR, 3=XOR  - Ou digite um outro valor para sair "))
         if operacaoInp == 1:
             operacao = [[0.0, 0.0, 0.0], # Carregar a matriz de treinamento
                         [0.0, 1.0, 0.0],
@@ -66,11 +66,11 @@ def testar():
         else:
             print("O sistema será encerrado")
             sys.exit()
-        maxIter = int(input("Defina o máximo de iterações para treinar "))
+        maxIter = int(input("Defina o maximo de iteracoes para treinar "))
         txAprend = int(input("Defina a taxa de aprendizado "))
         treinar(operacao, maxIter, txAprend)
 
-        dicisaoWhile = int(input("Deseja continiar com os testes nesta operacao?: 1=Sim, 2=Não "))
+        dicisaoWhile = int(input("Deseja continuar com os testes nesta operacao?: 1=Sim, 2=Não "))
         while dicisaoWhile == 1:
             valor1 = int(input("Digite o primeiro valor (0 ou 1): "))
             valor2 = int(input("Digite o segundo valor (0 ou 1): "))
@@ -79,9 +79,9 @@ def testar():
                 saida = 1
             else:
                 saida = 0
-            print("Estradas:", valor1, "e", valor2)
+            print("Entradas:", valor1, "e", valor2)
             print("Saída: ", saida)
-            dicisaoWhile = int(input("Deseja continiar com os testes nesta operacao?: 1=Sim, 2=Não "))
+            dicisaoWhile = int(input("Deseja continuar com os testes nesta operacao?: 1=Sim, 2=Não "))
             if dicisaoWhile == 1:
                 continue
             else:
