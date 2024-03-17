@@ -1,13 +1,13 @@
 #Pesos e bias
+import sys
+
 pesos = [0.0, 0.0]
 bias = 0.0
 
-def treinar(operacao):
+def treinar(operacao, maxIter, txAprend):
     somaErro = 1
     iteracao = 1
-    maxIter = 1000 # define máximo de iterações para treinar
     saida = 0.0
-    txAprend = 1.00 # define a taxa de aprendizado
     global pesos
     global bias
 
@@ -29,10 +29,13 @@ def treinar(operacao):
 
         iteracao += 1  # incrementa o contador de iterações
 
-    if somaErro == 0:# mensagem do resultado do treinamento
-        print("Treinamento OK")
-    else:
-        print("FALHA NO TREINAMENTO...")
+        if somaErro == 0:# mensagem do resultado do treinamento
+            print("Treinamento OK")
+        else:
+            print("FALHA NO TREINAMENTO...")
+            if somaErro == len(operacao):
+                print("Falha total no treinamento, nao ha como o sistema realizar este calculo")
+                sys.exit()
 
 # inicializar as variaseis necessárias
 def testar():
@@ -41,11 +44,10 @@ def testar():
     saida = 0
     operacaoInp = 0
     operacao = 0
+    maxIter = 0
 
     while True: # laço de uso do perceptron
-        valor1 = int(input("Digite o primeiro valor (0 ou 1): "))
-        valor2 = int(input("Digite o segundo valor (0 ou 1): "))
-        operacaoInp = int(input("Digite a operação desejada: 1=AND, 2=OR, 3=XOR "))
+        operacaoInp = int(input("Digite a operação desejada: 1=AND, 2=OR, 3=XOR  - Ou digite um outro valor para sair "))
         if operacaoInp == 1:
             operacao = [[0.0, 0.0, 0.0], # Carregar a matriz de treinamento
                         [0.0, 1.0, 0.0],
@@ -61,14 +63,29 @@ def testar():
                         [0.0, 1.0, 1.0],
                         [1.0, 0.0, 1.0],
                         [1.0, 1.0, 0.0]]
-        treinar(operacao)
-        saida = pesos[0] * valor1 + pesos[1] * valor2 + bias
-        if saida >= 0:
-            saida = 1
         else:
-            saida = 0
-        print("Estradas:", valor1, "e", valor2)
-        print("Saída: ", saida)
+            print("O sistema será encerrado")
+            sys.exit()
+        maxIter = int(input("Defina o máximo de iterações para treinar "))
+        txAprend = int(input("Defina a taxa de aprendizado "))
+        treinar(operacao, maxIter, txAprend)
+
+        dicisaoWhile = int(input("Deseja continiar com os testes nesta operacao?: 1=Sim, 2=Não "))
+        while dicisaoWhile == 1:
+            valor1 = int(input("Digite o primeiro valor (0 ou 1): "))
+            valor2 = int(input("Digite o segundo valor (0 ou 1): "))
+            saida = pesos[0] * valor1 + pesos[1] * valor2 + bias
+            if saida >= 0:
+                saida = 1
+            else:
+                saida = 0
+            print("Estradas:", valor1, "e", valor2)
+            print("Saída: ", saida)
+            dicisaoWhile = int(input("Deseja continiar com os testes nesta operacao?: 1=Sim, 2=Não "))
+            if dicisaoWhile == 1:
+                continue
+            else:
+                break
 
 # chamada às funções
 testar()
